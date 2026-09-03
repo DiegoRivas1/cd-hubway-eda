@@ -1,0 +1,8 @@
+data/hubway_trips.csv
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+report/*.aux
+report/*.log
+report/*.out
+report/*.pdf
