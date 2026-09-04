@@ -11,7 +11,8 @@
 \title{Análisis Exploratorio de Datos -- Data Wrangling \\
 \large Dataset Hubway: sistema de bicicletas compartidas de Boston (2011--2013)}
 \author{Diego Raúl Rivas Huanca \\
-
+Guerra Chura Joan Leonardo \\
+}
 \date{\today}
 
 \begin{document}
@@ -154,8 +155,33 @@ los meses de invierno boreal), más que recreativo.
 
 \textbf{Pregunta tiempo-espacio (dataset externo sugerido):} ¿el clima diario (temperatura, lluvia, nieve)
 explica las variaciones día a día en el uso, más allá de la estacionalidad agregada por mes? Requeriría
-cruzar \texttt{trips} agregado por día con un dataset externo de clima histórico de Boston (p. ej. NOAA /
-Open-Meteo), uniendo por fecha.
+cruzar \texttt{trips} agregado por día con un dataset externo de clima histórico de Boston, uniendo por
+fecha (\texttt{start\_dt.dt.date}). Fuente sugerida: NOAA Climate Data Online (dataset GHCN-Daily,
+estación Boston Logan Airport, \texttt{USW00014739}, \url{https://www.ncdc.noaa.gov/cdo-web/datasets}), o
+como alternativa sin registro, Open-Meteo Historical Weather API.
+
+\subsection*{Resultado del cruce con clima (Open-Meteo)}
+
+Se descargó el clima diario de Boston (temperatura máxima, mínima, precipitación y nieve) vía la API de
+Open-Meteo y se cruzó por fecha con el número de viajes por día.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/fig10_clima_vs_viajes.png}
+\caption{Viajes por día vs. temperatura máxima (izquierda) y vs. precipitación (derecha).}
+\end{figure}
+
+La dispersión confirma lo que ya sugería la estacionalidad del Paso 3, pero a nivel diario: con temperaturas
+bajas (cercanas a 0\,°C) el número de viajes diarios rara vez supera los 1000-2000, mientras que entre
+15\,°C y 30\,°C aparecen la mayoría de los días con más de 3000-5000 viajes -- la relación no es lineal
+estricta (hay un techo/meseta más que un crecimiento continuo con la temperatura), coherente con que el
+sistema simplemente no opera en los meses más fríos. En precipitación se observa el patrón opuesto: casi
+todos los días con más de 4000-5000 viajes tienen precipitación cercana a 0\,mm, y los días de lluvia
+fuerte (>20\,mm) prácticamente nunca superan los 2000 viajes. En conjunto, ambas variables aportan señal
+real (más allá de solo el mes del año) para explicar la variación diaria en el uso, lo que valida la
+pregunta planteada al inicio del Paso 4 como una vía razonable para profundizar el análisis (por ejemplo,
+con un modelo de regresión que use temperatura y precipitación como predictores del volumen diario de
+viajes).
 
 \textbf{Como problema supervisado (predecir \texttt{subsc\_type}):}
 \begin{itemize}
