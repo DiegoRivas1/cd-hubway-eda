@@ -3,8 +3,6 @@
 Análisis Exploratorio de Datos (Data Wrangling) sobre el dataset **Hubway**, el sistema de bicicletas
 compartidas de Boston (2011–2013).
 
-Práctica de Laboratorio — Curso *Ciencia de Datos & Big Data*, Maestría en Ciencia de la Computación,
-Universidad Nacional de San Agustín de Arequipa. Docente: Ana María Cuadros Valdivia.
 
 ## Estructura del repositorio
 
